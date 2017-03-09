@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Weather App</title>
+    <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="bower_components/angular-toastr/dist/angular-toastr.css" />
+    <!-- endbower -->
+    <!-- inject:css -->
+    <link rel="stylesheet" href="/app/styles/styles.css">
+    <!-- endinject -->
+</head>
+
+<body ng-controller="WeatherAppsController as vm">
+    <div class="form-group">
+        <label class="col-md-4 control-label" for="appendedtext">Choose your City</label>
+        <div class="col-md-4">
+            <div class="input-group">
+                <input id="searchinput" name="searchinput" type="search" placeholder="City Name " ng-model="vm.cityName" class="form-control input-md">
+                <span class="input-group-addon" ng-click="vm.getWeather(vm.cityName)">Get Weather</span>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div>
+        <div class="panel-body ">
+            <tabel ng-model='cityData'>
+                <th>City Name</th>
+                <h2>{{vm.cityWeather.name}}</h2>
+                <th>Lat/Long: </th>
+                <p>{{vm.cityWeather.lat}} {{vm.cityWeather.lon}}</p>
+                <br>
+                <th>Temperature (F) </th>
+                <p>{{vm.cityWeather.temp}}</p>
+                <th>Pressure </th>
+                <p>{{vm.cityWeather.pressure}}</p>
+                <th>Temp Min</th>
+                <p>{{vm.cityWeather.tempMin}}</p>
+                <th>Temp Max </th>
+                <p>{{vm.cityWeather.tempMax}}</p>
+            </tabel>
+        </div>
+        <table class="table table-striped table-hover">
+            <thead>
+                <span ng-repeat="x in vm.searchHistory ">
+                <button type="button" class="btn btn-primary" ng-click="vm.getWeather(x.city)">{{x.city}}</button>
+                </span>
+                <tr>
+                    <th>Previous cities</th>
+                </tr>
+            </thead>
+            <tr ng-repeat="x in vm.searchHistory">
+                <td>{{x.city}}</td>
+                <td>{{x.temp}} F</td>
+                <td>Searched at {{x.date| date : 'dd, MMMM yyyy hh:mm:ss a'}}</td>
+            </tr>
+        </table>
+        <!-- bower:js -->
+        <script src="bower_components/angular/angular.js"></script>
+        <script src="bower_components/jquery/dist/jquery.js"></script>
+        <script src="bower_components/angular-toastr/dist/angular-toastr.tpls.js"></script>
+        <script src="bower_components/angular-filter/dist/angular-filter.js"></script>
+        <!-- endbower -->
+        <h1></h1>
+        <!-- inject:js -->
+        <script src="/app/app.js"></script>
+        <script src="/app/weatherApp.controller.js"></script>
+        <script src="/app/weatherApp.factory.js"></script>
+        <!-- endinject -->
+</body>
+
+</html>
